@@ -175,7 +175,7 @@ class DeephavenWidget(DOMWidget):
 
         # Generate the iframe_url from the object type
         iframe_url = (
-            f"http://localhost:4010/{_path_for_object(deephaven_object)}/{param_string}"
+            f"{server_url}iframe/{_path_for_object(deephaven_object)}/{param_string}"
         )
 
         self.set_trait("server_url", server_url)
