@@ -143,10 +143,12 @@ class DeephavenWidget(DOMWidget):
 
             server_url, token = _check_session(session, params)
 
+            # h/ is the prefix for shared tickets used by the server
             ticket = SharedTicket(b"h/" + object_id.encode("utf-8"))
             session.publish_table(ticket, deephaven_object)
 
-            params["shared"] = 'Table'
+            params["type"] = "Table"
+            params["isShared"] = "true"
         else:
             from deephaven_server import Server
             port = Server.instance.port
@@ -173,7 +175,7 @@ class DeephavenWidget(DOMWidget):
 
         # Generate the iframe_url from the object type
         iframe_url = (
-            f"{server_url}iframe/{_path_for_object(deephaven_object)}/{param_string}"
+            f"http://localhost:4010/{_path_for_object(deephaven_object)}/{param_string}"
         )
 
         self.set_trait("server_url", server_url)
